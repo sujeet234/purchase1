@@ -251,7 +251,7 @@ app.get("/purchases/products/:id",function(req,res){
         if(err) res.status(404).send(err);
         else{
             let prodArray = JSON.parse(data);
-            let product = prodArray.purchases.filter((st)=>st.productId===id);
+            let product = prodArray.purchases.filter((st)=>st.productid===id);
             if(product) res.send(product);
             else res.status(404).send("No product Found");
         }
