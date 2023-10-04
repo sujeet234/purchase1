@@ -233,8 +233,8 @@ app.get("/totalPurchases/shops/:id",function(req,res){
     })
 })
 
-app.get("/products/:id",function(req,res){
-    let id = +req.params.id;
+app.get("/products/:productId",function(req,res){
+    let id = +req.params.productId;
     fs.readFile(fname,"utf8",function(err,data){
         if(err) res.status(404).send(err);
         else{
