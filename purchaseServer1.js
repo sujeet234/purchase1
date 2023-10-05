@@ -205,13 +205,20 @@ app.get("/totalPurchases/products/:id",function(req,res){
     fs.readFile(fname,"utf8",function(err,data){
         if(err) res.status(404).send(err);
         else{
+            let json = [];
             let prodArray = JSON.parse(data);
             let purchase = prodArray.purchases.filter((fl)=>fl.productid===id);
-            let arr = purchase.map((ele)=>{
-                ele.totalPurchases=ele.quantity*ele.price
-                return ele;
+            purchase.forEach((ele)=>{
+                let jsonData=json.find((elem)=>elem.shopId==ele.shopId);
+                // console.log(jsonData);
+                if(jsonData){
+                    jsonData.totalPurchases+=(ele.quantity*ele.price);
+                }else{
+                    let temp={shopId:ele.shopId,productId:ele.productid,totalPurchases:ele.quantity*ele.price};
+                    json.push(temp);
+                }
             })
-            if(arr) res.send(arr);
+            if(json) res.send(json);
             else res.status(404).send("No product Found");
         }
     })
@@ -221,13 +228,20 @@ app.get("/totalPurchases/shops/:id",function(req,res){
     fs.readFile(fname,"utf8",function(err,data){
         if(err) res.status(404).send(err);
         else{
+            let json = [];
             let prodArray = JSON.parse(data);
             let purchase = prodArray.purchases.filter((fl)=>fl.shopId===id);
-            let arr = purchase.map((ele)=>{
-                ele.totalPurchases=ele.quantity*ele.price
-                return ele;
+            purchase.forEach((ele)=>{
+                let jsonData=json.find((elem)=>elem.productId==ele.productid);
+                // console.log(jsonData);
+                if(jsonData){
+                    jsonData.totalPurchases+=(ele.quantity*ele.price);
+                }else{
+                    let temp={shopId:ele.shopId,productId:ele.productid,totalPurchases:ele.quantity*ele.price};
+                    json.push(temp);
+                }
             })
-            if(arr) res.send(arr);
+            if(json) res.send(json);
             else res.status(404).send("No shop Found");
         }
     })
