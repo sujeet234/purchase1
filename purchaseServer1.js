@@ -163,7 +163,7 @@ app.get("/purchases",function(req,res){
                 let catgArr = product.split(",");
                 arr = arr.filter((st)=>catgArr.find((c1)=>c1 === st.productid));
                 catgArr.forEach(element => {
-                    let temp=shopArray.products.filter((ele)=>ele.category==element);
+                    let temp=shopArray.products.filter((ele)=>ele.productName==element);
                     arr.push(...temp);
                 });
                 arr.forEach(element => {
@@ -180,7 +180,7 @@ app.get("/purchases",function(req,res){
                 catgArr.forEach(element => {
                     let temp=shopArray.shops.filter((ele)=>ele.name===element);
                     arr.push(...temp);
-                    console.log(shopArray.shops);
+                    // console.log(shopArray.shops);
                 });
                 arr.forEach(element => {
                     // element.productId;
