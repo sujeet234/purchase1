@@ -157,36 +157,38 @@ app.get("/purchases",function(req,res){
         else{
             let shopArray = JSON.parse(data);
             let arr = [];
+            // let datam=[];
             let datam=shopArray.purchases;
             if(product){
-                datam=[];
-                let catgArr = product.split(",");
-                arr = arr.filter((st)=>catgArr.find((c1)=>c1 === st.productid));
-                catgArr.forEach(element => {
-                    let temp=shopArray.products.filter((ele)=>ele.productName==element);
-                    arr.push(...temp);
-                });
-                arr.forEach(element => {
-                    // element.productId;
-                    let temp=shopArray.purchases.filter((elem)=>elem.productid==element.productId);
-                    datam.push(...temp);
-                });
+                let catgArr = product.split("pr"+",");
+                datam = datam.filter((fl)=>catgArr.find((ct)=>ct=="pr"+fl.productid));
+                // arr = arr.filter((st)=>catgArr.find((c1)=>c1 === st.productid));
+                // catgArr.forEach(element => {
+                //     let temp=shopArray.products.filter((ele)=>ele.productId==element);
+                //     arr.push(...temp);
+                // });
+                // arr.forEach(element => {
+                //     // element.productId;
+                //     let temp=shopArray.purchases.filter((elem)=>elem.productid==element.productId);
+                //     // console.log(...temp);
+                //     datam.push(...temp);
+                // });
             }
             if(shop){
-                datam=[];
-                let catgArr = shop.split(",");
-                // arr = arr.filter((st)=>catgArr.find((c1)=>c1 === st.shopId));
-                console.log(catgArr);
-                catgArr.forEach(element => {
-                    let temp=shopArray.shops.filter((ele)=>ele.name===element);
-                    arr.push(...temp);
-                    // console.log(shopArray.shops);
-                });
-                arr.forEach(element => {
-                    // element.productId;
-                    let temp=shopArray.purchases.filter((elem)=>elem.shopId==element.shopId);
-                    datam.push(...temp);
-                });
+                
+                let catgArr = shop.split("st"+",");
+                datam = datam.filter((st)=>catgArr.find((c1)=>c1 == "st"+st.shopId));
+                // console.log(catgArr);
+                // catgArr.forEach(element => {
+                //     let temp=shopArray.shops.filter((ele)=>ele.shopId==element);
+                //     arr.push(...temp);
+                //     // console.log(shopArray.shops);
+                // });
+                // arr.forEach(element => {
+                //     // element.productId;
+                //     let temp=shopArray.purchases.filter((elem)=>elem.shopId==element.shopId);
+                //     datam.push(...temp);
+                // });
             }
             // datam= shop ? datam.filter((fl)=>fl.shopId===shop) : datam;
             // datam = product ? datam.filter((fl1)=>fl1.productid===product) : datam;
@@ -194,7 +196,7 @@ app.get("/purchases",function(req,res){
             datam = sort==="QtyDesc" ? datam.sort((st1,st2)=>st2.quantity-st1.quantity):datam;
             datam = sort==="ValueAsc" ? datam.sort((st1,st2)=>st1.quantity*st1.price-st2.quantity*st2.price):datam;
             datam = sort==="ValueDesc" ? datam.sort((st1,st2)=>st2.quantity*st2.price-st1.quantity*st1.price):datam;
-            console.log(datam);
+            // console.log(datam);
             res.send(datam);
         }
     })
