@@ -160,8 +160,14 @@ app.get("/purchases",function(req,res){
             // let datam=[];
             let datam=shopArray.purchases;
             if(product){
-                let catgArr = product.split("pr"+",");
-                datam = datam.filter((fl)=>catgArr.find((ct)=>ct=="pr"+fl.productid));
+                let catgArr = product.split(",");
+                // console.log(catgArr);
+                catgArr.forEach((elem)=>{
+                    let temp=datam.filter((fl)=>"pr"+fl.productid==elem);
+                    arr.push(...temp);
+                })
+                // datam = datam.filter((fl)=>catgArr.find((ct)=>ct=="pr"+fl.productid));
+                datam=arr;
                 // arr = arr.filter((st)=>catgArr.find((c1)=>c1 === st.productid));
                 // catgArr.forEach(element => {
                 //     let temp=shopArray.products.filter((ele)=>ele.productId==element);
