@@ -144,7 +144,7 @@ app.get("/products",function(req,res){
         if(err) res.status(404).send(err);
         else{
             let shopArray = JSON.parse(data);
-            res.send(shopArray.products);
+            res.send(shopArray);
         }
     })
 })
